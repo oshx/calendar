@@ -6,10 +6,9 @@ body {
 
 body {
   font-family: Noto Sans KR, malgun gothic, sans-serif;
-  font-size: 16px;
-  line-height: 1.4;
   color: #333;
-  background-color: #fff;
+  font-size: 0;
+  line-height: 0;
 }
 
 #legacy {
@@ -25,4 +24,96 @@ body {
   font-size: 24px;
   text-align: center;
   cursor: not-allowed;
+}
+
+.root {
+  display: block;
+}
+
+.page {
+  min-width: 288px;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 32px 16px;
+  page-break-after: always;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+@media print {
+  @page {
+    margin: 0;
+  }
+  @page :first {
+    margin: 0;
+    font-size: 0;
+  }
+  body {
+    margin: 1.6cm;
+  }
+  .page {
+    min-width: 0;
+    max-width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+table.calendar {
+  width: 100%;
+  table-layout: fixed;
+  border-spacing: 0;
+}
+
+table.calendar thead th.title {
+  text-align: center;
+}
+
+table.calendar thead th.title span {
+  display: block;
+}
+
+table.calendar thead th.title strong {
+  display: block;
+  font-size: 48px;
+}
+
+table.calendar thead th.day {
+  padding: 12px 0;
+  border-bottom: 1px solid #999;
+}
+
+table.calendar tbody td.day {
+  padding: 1em 0;
+  font-size: 16px;
+  line-height: 1.6;
+  height: 4em;
+  vertical-align: top;
+}
+
+
+table.calendar .sat {
+  color: #69c;
+}
+
+table.calendar .sun,
+table.calendar .holiday {
+    color: #e40;
+}
+
+table.calendar .date {
+  display: block;
+  float: left;
+  font-size: 16px;
+}
+
+table.calendar .lunar {
+  display: block;
+  float: right;
+}
+
+table.calendar .remark {
+  display: block;
+  clear: both;
+  font-style: normal;
 }
