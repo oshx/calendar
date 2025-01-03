@@ -4,7 +4,11 @@
 `2025년 달력 기준`
 `2025-01-03 제작`
 
-남은 할 일들
+- [gitlab page](https://oshx.gitlab.io/calendar/)
+- [github page](https://oshx.github.io/calendar/)
+
+
+  남은 할 일들
 ```
 - 스크롤을 달력 영역 별로 고정
 - 기념일을 켜고 끌 수 있게 수정
