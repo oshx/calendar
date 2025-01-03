@@ -3,6 +3,13 @@
   "version": "1.0.0",
   "description": "Calendar for printing",
   "source": "src/index.html",
+  "targets": {
+    "default": {
+      "distDir": "public",
+      "publicUrl": ".",
+      "sourceMap": false
+    }
+  },
   "scripts": {
     "dev": "parcel",
     "build": "parcel build"
