@@ -40,11 +40,14 @@ const remarkList = {
   "11-11": "빼빼로데이",
 };
 
+const NEW_YEAR = "신정";
+const MEMORIAL_DAY = "현충일";
+
 const holidayList = {
-  "1-1": "신정",
+  "1-1": NEW_YEAR,
   "3-1": "삼일절",
   "5-5": "어린이날",
-  "6-6": "현충일",
+  "6-6": MEMORIAL_DAY,
   "8-15": "광복절",
   "10-3": "개천절",
   "10-9": "한글날",
@@ -76,10 +79,11 @@ const circleList = {
 const lunarCircleList = {
   "4-8": true,
   "10-15": true,
+  "7-18": true,
 };
 
 function evaluateSubstituteHoliday(year, month, date, holiday) {
-  if (!holiday) {
+  if (!holiday || holiday === NEW_YEAR || holiday === MEMORIAL_DAY) {
     return;
   }
   if (holiday === LUNAR_NEW_YEAR || holiday === LUNAR_THANKS_GIVING) {
@@ -119,12 +123,6 @@ function addSubstituteHoliday(year, month, date, holiday = "", dayAfter = 1) {
   } else if (day.getDay() === 6) {
     day = new Date(year, month - 1, date + dayAfter + 1);
   }
-  // if (!nullish(holidayList[`${day.getMonth() + 1}-${day.getDate()}`])) {
-  //   console.error(
-  //     "이미 휴일이 지정되어 있습니다.\n",
-  //     holidayList[`${day.getMonth() + 1}-${day.getDate()}`]
-  //   );
-  // }
   holidayList[`${day.getMonth() + 1}-${day.getDate()}`] =
     `${!nullish(holiday) ? `${holiday} ` : ""}대체 휴일`;
 }

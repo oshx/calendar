@@ -12,7 +12,8 @@
   },
   "scripts": {
     "dev": "parcel",
-    "build": "parcel build"
+    "build": "parcel build",
+    "burst": "rimraf public dist .parcel-cache"
   },
   "author": {
     "name": "오승환",
@@ -21,7 +22,8 @@
   "license": "MIT",
   "devDependencies": {
     "parcel": "^2.13.3",
-    "prettier": "^3.4.2"
+    "prettier": "^3.4.2",
+    "rimraf": "^6.0.1"
   },
   "dependencies": {
     "korean-lunar-calendar": "^0.3.6"
