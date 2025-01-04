@@ -13,8 +13,8 @@
 ```?year=[1900-2100]```
 - [개인 기념일 안 보이기 설정](https://oshx.github.io/calendar/?circle=hide)
 ```?circle=[hide||show]```
-- [인쇄용 정렬 설정](https://oshx.github.io/calendar/?sort=book)
-```?sort=[asc||desc||book]```
+- [인쇄용 정렬 설정](https://oshx.github.io/calendar/?sortType=book)
+```?sortType=[asc||desc||book]```
 
 ## 남은 할 일들
 ```
