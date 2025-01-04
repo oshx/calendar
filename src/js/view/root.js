@@ -1,5 +1,5 @@
 import { DEFAULT_PARAM } from "~/src/js/core/param";
-import { CircleType } from "~/src/js/core/type";
+import { CircleType, SortType } from "~/src/js/core/type";
 
 export const Root = (function generateRoot(target) {
   const root = window.document.createElement("div");
@@ -11,10 +11,13 @@ export const Root = (function generateRoot(target) {
 export function optimizeHTMLRoot(param = DEFAULT_PARAM) {
   const optionalClassList = [];
   switch (param.circle) {
-    case CircleType.SHOW:
-      break;
     case CircleType.HIDE:
       optionalClassList.push("no-circle");
+      break;
+  }
+  switch (param.sortType) {
+    case SortType.BOOK:
+      optionalClassList.push("book");
       break;
   }
   if (!optionalClassList.length) {
