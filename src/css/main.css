@@ -55,6 +55,7 @@ body {
     height: 100%;
     margin: 0 auto;
     padding: 32px 0;
+    box-sizing: border-box;
 }
 
 .fixer {
@@ -73,6 +74,14 @@ body {
         width: auto;
         height: auto;
         white-space: normal;
+    }
+
+    html.book .root .page:nth-of-type(odd) {
+        padding-left: 5cm;
+    }
+
+    html.book .root .page:nth-of-type(even) {
+        padding-right: 5cm;
     }
 
     .page {
