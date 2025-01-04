@@ -1,5 +1,6 @@
 import CalendarCore from "~/src/js/core/calendar";
-import { nullish } from "~/src/js/core/type";
+import { nullish, SortType, SortTypeBookOrder } from "~/src/js/core/type";
+import { Root } from "~/src/js/view/root";
 
 function refineTemplate(template) {
   return template.replace(/\s+/g, " ");
@@ -8,13 +9,6 @@ function refineTemplate(template) {
 function refineTemplateList(templateList) {
   return templateList.map(refineTemplate).join("");
 }
-
-const Root = (function generateRoot(target) {
-  const root = window.document.createElement("div");
-  root.className = "root";
-  target.appendChild(root);
-  return root;
-})(window.document.body);
 
 function calendarDayItemTemplate({
   date,
@@ -60,11 +54,36 @@ function calendarRow(rowList) {
 }
 
 const Template = {
-  year(year) {
+  year(year, sortType = SortType.ASCENDING) {
+    if (!year || year < 1900 || year > 2100) {
+      year = new Date().getFullYear();
+    }
+    switch (sortType) {
+      case SortType.ASCENDING:
+      case SortType.DESCENDING:
+      case SortType.BOOK:
+        break;
+      default:
+        sortType = SortType.ASCENDING;
+    }
+
     return refineTemplateList(
       Array(12)
         .fill(1)
-        .map((v, i) => this.frame(year, v + i))
+        .map(function toFrame(month, index) {
+          switch (sortType) {
+            case SortType.DESCENDING:
+              month = 12 - index;
+              break;
+            case SortType.ASCENDING:
+              month = month + index;
+              break;
+            case SortType.BOOK:
+              month = SortTypeBookOrder[index];
+              break;
+          }
+          return Template.frame(year, month);
+        })
     );
   },
   frame(year, month) {
@@ -108,6 +127,7 @@ const Template = {
 
 const CalendarView = {
   Template,
+  SortType,
   render(template) {
     Root.innerHTML = template;
   },

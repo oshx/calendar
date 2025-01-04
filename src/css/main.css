@@ -80,7 +80,7 @@ body {
         min-width: 0;
         max-width: 100%;
         height: auto;
-        padding-top: 5cm;
+        padding-top: 25%;
         padding-left: 0;
         padding-right: 0;
         page-break-after: always;
@@ -220,4 +220,8 @@ table.calendar .wrap .holiday {
     .fixer {
         padding: 16px 8px;
     }
+}
+
+html.no-circle table.calendar .wrap .date.circle::after {
+    display: none;
 }
