@@ -71,11 +71,18 @@ const lunarRemarkList = {
   "7-15": "백중",
 };
 
+const temporaryHolidayList = {
+  2025: {
+    "1-27": "임시",
+  },
+};
+
 const circleList = {
   "9-6": true,
   "9-8": true,
   "7-28": true,
 };
+
 const lunarCircleList = {
   "4-8": true,
   "10-15": true,
@@ -124,35 +131,32 @@ function addSubstituteHoliday(year, month, date, holiday = "", dayAfter = 1) {
     day = new Date(year, month - 1, date + dayAfter + 1);
   }
   holidayList[`${day.getMonth() + 1}-${day.getDate()}`] =
-    `${!nullish(holiday) ? `${holiday} ` : ""}대체 휴일`;
+    `${!nullish(holiday) ? `${holiday} ` : ""}대체`;
 }
 
 function toDayItem(year, month, date, day, lunar) {
-  let remark = null;
-  let holiday = null;
-  let circle = null;
+  const monthDateKey = `${month}-${date}`;
   if (koreanLunarCalendar.setSolarDate(year, month, date)) {
     const {
       month: lunarMonth,
       day: lunarDate,
       intercalation,
     } = koreanLunarCalendar.getLunarCalendar();
+    const lunarMonthDateKey = `${lunarMonth}-${lunarDate}`;
     lunar = `${intercalation ? "윤달" : "음력"} ${lunarMonth}.${lunarDate}`;
-    if (lunarHolidayList[`${lunarMonth}-${lunarDate}`]) {
-      holidayList[`${month}-${date}`] =
-        lunarHolidayList[`${lunarMonth}-${lunarDate}`];
+    if (lunarHolidayList[lunarMonthDateKey]) {
+      holidayList[monthDateKey] = lunarHolidayList[lunarMonthDateKey];
     }
-    if (lunarRemarkList[`${lunarMonth}-${lunarDate}`]) {
-      remarkList[`${month}-${date}`] =
-        lunarRemarkList[`${lunarMonth}-${lunarDate}`];
+    if (lunarRemarkList[lunarMonthDateKey]) {
+      remarkList[monthDateKey] = lunarRemarkList[lunarMonthDateKey];
     }
-    if (lunarCircleList[`${lunarMonth}-${lunarDate}`]) {
-      circleList[`${month}-${date}`] = true;
+    if (lunarCircleList[lunarMonthDateKey]) {
+      circleList[monthDateKey] = true;
     }
   }
-  remark = remarkList[`${month}-${date}`];
-  holiday = holidayList[`${month}-${date}`];
-  circle = circleList[`${month}-${date}`];
+  const remark = remarkList[monthDateKey] || null;
+  const holiday = holidayList[monthDateKey] || null;
+  const circle = circleList[monthDateKey] || null;
 
   evaluateSubstituteHoliday(year, month, date, holiday);
 
@@ -185,6 +189,13 @@ const CalendarCore = {
     const rowList = [];
     let row = [];
     const emptyDayItem = toDayItem(year, month, null, row.length, null);
+    if (temporaryHolidayList[year]) {
+      Object.entries(temporaryHolidayList[year]).forEach(
+        ([monthDateKey, holiday]) => {
+          holidayList[monthDateKey] = holiday;
+        }
+      );
+    }
     for (let i = 0; i < firstDayOfWeek; i++) {
       row.push(emptyDayItem);
     }
