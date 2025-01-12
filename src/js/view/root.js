@@ -23,5 +23,5 @@ export function optimizeHTMLRoot(param = DEFAULT_PARAM) {
   if (!optionalClassList.length) {
     return;
   }
-  window.document.documentElement.classList.add(optionalClassList);
+  window.document.documentElement.classList.add(...optionalClassList);
 }

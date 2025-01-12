@@ -1,3 +1,25 @@
+:root {
+    --color-background: #fff;
+    --color-primary: #69c;
+    --color-holiday: #f63;
+    --color-secondary: #ccc;
+    --color-text: #666;
+    --color-text-primary: #000;
+    --color-text-secondary: #777;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-background: #012;
+        --color-primary: #9af;
+        --color-holiday: #fa6;
+        --color-secondary: #666;
+        --color-text: #ccc;
+        --color-text-primary: #fff;
+        --color-text-secondary: #bbb;
+    }
+}
+
 html,
 body {
     margin: 0;
@@ -6,39 +28,40 @@ body {
 
 html {
     font-size: 10px;
+    background-color: var(--color-background);
 }
 
 body {
     font-family: Noto Sans KR,
     malgun gothic,
     sans-serif;
-    color: #666;
+    color: var(--color-text);
     font-size: 1.6rem;
     line-height: 1.4;
     user-select: none;
 }
 
+.root {
+    display: block;
+}
+
 #legacy {
-    position: absolute;
+    position: absolute; /* legacy */
+    position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
     margin: 0;
-    background: #ccc;
-    color: #000;
+    background: #fff; /* legacy */
+    background: var(--color-background);
+    color: #000; /* legacy */
+    color: var(--color-text-primary);
     padding: 10px;
     font-size: 2.4rem;
     text-align: center;
     cursor: not-allowed;
-}
-
-.root {
-    display: block;
-    min-width: 100vw;
-    min-height: 100vh;
-    overflow: auto;
-    white-space: nowrap;
+    z-index: 1000;
 }
 
 .root::after {
@@ -48,17 +71,21 @@ body {
 }
 
 .page {
-    display: inline-block;
-    vertical-align: top;
+    display: block;
     white-space: normal;
     width: 100%;
-    height: 100%;
+    min-height: 100%;
     margin: 0 auto;
     padding: 32px 0;
     box-sizing: border-box;
 }
 
+.page + .page {
+    margin-top: 6rem;
+}
+
 .fixer {
+    display: block;
     padding: 32px;
     margin: 0 auto;
     max-width: 960px;
@@ -92,14 +119,15 @@ table.calendar thead th.title span {
 
 table.calendar thead th.title strong {
     display: block;
-    font-size: 4.8rem;
+    font-size: 6.4rem;
 }
 
 table.calendar .day {
     white-space: normal;
     word-break: keep-all;
     word-wrap: break-word;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--color-secondary);
+    letter-spacing: -0.02em;
 }
 
 table.calendar thead th.day {
@@ -115,12 +143,12 @@ table.calendar tbody td.day {
 }
 
 table.calendar .sat {
-    color: #69c;
+    color: var(--color-primary);
 }
 
 table.calendar .sun,
 table.calendar .holiday {
-    color: #f63;
+    color: var(--color-holiday);
 }
 
 table.calendar .wrap {
@@ -141,19 +169,20 @@ table.calendar .wrap .remark {
 table.calendar .wrap .date {
     float: left;
     position: relative;
-    font-size: 2.4rem;
+    font-size: 4.2rem;
     line-height: 1;
 }
+
 table.calendar .wrap .date.circle::after {
     content: '';
     position: absolute;
     top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    margin: -6px -6px -3px;
-    border: 3px double rgba(51, 102, 153, 0.5);
+    left: -0.5rem;
+    width: 0.25rem;
+    height: 0.25rem;
+    border: 3px solid var(--color-primary);
     border-radius: 50%;
+    background: var(--color-primary);
 }
 
 table.calendar .wrap .holiday {
@@ -163,11 +192,11 @@ table.calendar .wrap .holiday {
 
 table.calendar .wrap .lunar {
     font-size: 1.0rem;
-    color: #999;
+    color: var(--color-text-secondary);
 }
 
 table.calendar .wrap .remark {
-    color: #999;
+    color: var(--color-text-secondary);
 }
 
 table.calendar .wrap .remark,
@@ -192,7 +221,12 @@ table.calendar .wrap .holiday {
         margin: 0;
     }
 
+    .no-print {
+        display: none !important;
+    }
+
     .root {
+        position: static;
         width: auto;
         height: auto;
         white-space: normal;
@@ -221,8 +255,21 @@ table.calendar .wrap .holiday {
         page-break-after: auto;
     }
 
+    .page + .page {
+        margin-top: 0;
+    }
+
     html.book table.calendar .wrap .holiday {
         font-size: 1.2rem;
+    }
+
+    html.book table.calendar .wrap .date {
+        font-size: 1.2rem;
+    }
+
+    html.book table.calendar tbody td.day {
+        height: 8em;
+        border-left: 1px dashed var(--color-secondary);
     }
 }
 
