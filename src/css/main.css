@@ -168,6 +168,8 @@ table.calendar .wrap .remark {
 
 table.calendar .wrap .date {
     float: left;
+    display: inline-block;
+    vertical-align: middle;
     position: relative;
     font-size: 4.2rem;
     line-height: 1;
@@ -177,7 +179,7 @@ table.calendar .wrap .date.circle::after {
     content: '';
     position: absolute;
     top: 0;
-    left: -0.5rem;
+    left: -1rem;
     width: 0.25rem;
     height: 0.25rem;
     border: 3px solid var(--color-primary);
@@ -188,6 +190,7 @@ table.calendar .wrap .date.circle::after {
 table.calendar .wrap .holiday {
     text-align: center;
     font-size: 1.4rem;
+    line-height: 1.6;
 }
 
 table.calendar .wrap .lunar {
@@ -212,7 +215,17 @@ table.calendar .wrap .holiday {
     }
 
     .fixer {
-        padding: 32px 16px;
+        padding: 16px 8px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    html {
+        font-size: 5px;
+    }
+
+    .fixer {
+        padding: 12px 6px;
     }
 }
 
@@ -233,11 +246,11 @@ table.calendar .wrap .holiday {
     }
 
     html.book .root .page:nth-of-type(odd) {
-        padding-left: 5cm;
+        padding-left: 3cm;
     }
 
     html.book .root .page:nth-of-type(even) {
-        padding-right: 5cm;
+        padding-right: 3cm;
     }
 
     .page {
@@ -245,7 +258,7 @@ table.calendar .wrap .holiday {
         min-width: 0;
         max-width: 100%;
         height: auto;
-        padding-top: 25%;
+        padding-top: 20%;
         padding-left: 0;
         padding-right: 0;
         page-break-after: always;
@@ -268,18 +281,13 @@ table.calendar .wrap .holiday {
     }
 
     html.book table.calendar tbody td.day {
-        height: 8em;
+        height: 12rem;
         border-left: 1px dashed var(--color-secondary);
     }
-}
 
-@media screen and (max-width: 480px) {
-    html {
-        font-size: 6px;
-    }
-
-    .fixer {
-        padding: 16px 8px;
+    html.book table.calendar tbody td.day.empty ~ td.day.empty,
+    html.book table.calendar tbody td.day:first-of-type {
+        border-left: 0 none;
     }
 }
 
