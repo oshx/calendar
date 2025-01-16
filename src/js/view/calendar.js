@@ -89,7 +89,7 @@ const Template = {
   frame(year, month) {
     const rowList = CalendarCore.toRowList(year, month);
     return refineTemplate(/* HTML */ `
-      <div class="page">
+      <div class="page" id="_${year}_${month}">
         <div class="fixer">
           <table class="calendar">
             <thead>
