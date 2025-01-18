@@ -55,7 +55,8 @@ function calendarRow(rowList) {
 
 const Template = {
   year(year, sortType = SortType.ASCENDING) {
-    if (!year || year < 1900 || year > 2100) {
+    year = Number(year);
+    if (!year || isNaN(year) || year < 1900 || year > 2100) {
       year = new Date().getFullYear();
     }
     switch (sortType) {
