@@ -25,21 +25,14 @@ function calendarDayItemTemplate({
     class="day ${dayLabel}${!nullish(holiday) ? " holiday" : ""}"
   >
     <span class="wrap">
+      ${!nullish(lunar) ? /* HTML */ `<span class="lunar">${lunar}</span>` : ""}
       <strong class="date${!nullish(circle) ? " circle" : ""}">${date}</strong>
       ${!nullish(holiday)
         ? /* HTML */ `<em class="holiday">${holiday}</em>`
         : ""}
-    </span>
-    ${lunar || remark
-      ? /* HTML */ `<span class="wrap">
-          ${!nullish(lunar)
-            ? /* HTML */ `<span class="lunar">${lunar}</span>`
-            : ""}
-          ${!nullish(remark)
-            ? /* HTML */ `<em class="remark">${remark}</em>`
-            : ""}
-        </span>`
-      : ""}
+      ${!nullish(remark) ? /* HTML */ `<em class="remark">${remark}</em>` : ""}
+      ${nullish(holiday) && nullish(remark) ? /* HTML */ `&nbsp;` : ""}</span
+    >
   </td>`;
 }
 
