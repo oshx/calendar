@@ -8,7 +8,6 @@ const dayLabel = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
 const remarkList = {
   "1-5": "소한 小寒",
   "1-20": "대한 大寒",
-  "2-4": "입춘 立春",
   "2-19": "우수 雨水",
   "3-6": "경칩 驚蟄",
   "3-21": "춘분 春分",
@@ -181,6 +180,14 @@ function evaluateDayItem(dayItem) {
 }
 
 const CalendarCore = {
+  mapYearPreprocessFormula(year) {
+    if (year % 4 === 1) {
+      remarkList["2-3"] = "입춘 立春";
+    } else {
+      remarkList["2-4"] = "입춘 立春";
+    }
+    return true;
+  },
   toRowList(year, month) {
     const firstDay = new Date(year, month - 1, 1);
     const lastDay = new Date(year, month, 0);
