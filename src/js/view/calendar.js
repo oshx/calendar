@@ -46,12 +46,32 @@ function calendarRow(rowList) {
   return refineTemplateList(rowList.map(calendarRowTemplate));
 }
 
+function generateMapToFrame(year, sortType) {
+  return function toFrame(month, index) {
+    switch (sortType) {
+      case SortType.DESCENDING:
+        month = 12 - index;
+        break;
+      case SortType.ASCENDING:
+        month = month + index;
+        break;
+      case SortType.BOOK:
+        month = SortTypeBookOrder[index];
+        break;
+    }
+    return Template.frame(year, month);
+  };
+}
+
 const Template = {
   year(year, sortType = SortType.ASCENDING) {
     year = Number(year);
     if (!year || isNaN(year) || year < 1900 || year > 2100) {
       year = new Date().getFullYear();
     }
+
+    CalendarCore.mapYearPreprocessFormula(year);
+
     switch (sortType) {
       case SortType.ASCENDING:
       case SortType.DESCENDING:
@@ -62,22 +82,7 @@ const Template = {
     }
 
     return refineTemplateList(
-      Array(12)
-        .fill(1)
-        .map(function toFrame(month, index) {
-          switch (sortType) {
-            case SortType.DESCENDING:
-              month = 12 - index;
-              break;
-            case SortType.ASCENDING:
-              month = month + index;
-              break;
-            case SortType.BOOK:
-              month = SortTypeBookOrder[index];
-              break;
-          }
-          return Template.frame(year, month);
-        })
+      Array(12).fill(1).map(generateMapToFrame(year, sortType))
     );
   },
   frame(year, month) {
