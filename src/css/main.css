@@ -144,6 +144,7 @@ table.calendar tbody td.day {
     height: 6rem;
     vertical-align: top;
     border-left: 1px dashed var(--color-secondary);
+    white-space: pre-line;
 }
 
 table.calendar tbody td.day.empty~td.day.empty,

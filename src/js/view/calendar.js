@@ -10,6 +10,16 @@ function refineTemplateList(templateList) {
   return templateList.map(refineTemplate).join("");
 }
 
+function refineHolidayItemTemplate(value) {
+  if (value === null || value === undefined) {
+    return "";
+  }
+  if (Array.isArray(value)) {
+    return value.map(refineHolidayItemTemplate).join("");
+  }
+  return /* HTML */ `<em class="holiday">${value}</em>`;
+}
+
 function calendarDayItemTemplate({
   date,
   dayLabel,
@@ -27,9 +37,7 @@ function calendarDayItemTemplate({
     <span class="wrap">
       ${!nullish(lunar) ? /* HTML */ `<span class="lunar">${lunar}</span>` : ""}
       <strong class="date${!nullish(circle) ? " circle" : ""}">${date}</strong>
-      ${!nullish(holiday)
-        ? /* HTML */ `<em class="holiday">${holiday}</em>`
-        : ""}
+      ${refineHolidayItemTemplate(holiday)}
       ${!nullish(remark) ? /* HTML */ `<em class="remark">${remark}</em>` : ""}
       ${nullish(holiday) && nullish(remark) ? /* HTML */ `&nbsp;` : ""}</span
     >
