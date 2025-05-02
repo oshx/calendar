@@ -116,6 +116,9 @@ function evaluateSubstituteHoliday(year, month, date, holiday) {
     return;
   }
   const day = new Date(year, month - 1, date);
+  if (holidayList[`${month}-${date}`]) {
+    console.debug(year, month, date, holidayList[`${month}-${date}`]);
+  }
   if (day.getDay() !== 0 && day.getDay() !== 6) {
     return;
   }
@@ -144,7 +147,10 @@ function toDayItem(year, month, date, day, lunar) {
     const lunarMonthDateKey = `${lunarMonth}-${lunarDate}`;
     lunar = `${intercalation ? "윤달" : "음력"} ${lunarMonth}.${lunarDate}`;
     if (lunarHolidayList[lunarMonthDateKey]) {
-      holidayList[monthDateKey] = lunarHolidayList[lunarMonthDateKey];
+      if (holidayList[monthDateKey]) {
+        addSubstituteHoliday(year, month, date + 1, holidayList[monthDateKey], 1);
+      }
+      holidayList[monthDateKey] = [holidayList[monthDateKey], lunarHolidayList[lunarMonthDateKey]].filter(v => !!v);
     }
     if (lunarRemarkList[lunarMonthDateKey]) {
       remarkList[monthDateKey] = lunarRemarkList[lunarMonthDateKey];
