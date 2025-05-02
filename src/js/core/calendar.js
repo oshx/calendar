@@ -73,6 +73,7 @@ const lunarRemarkList = {
 const temporaryHolidayList = {
   2025: {
     "1-27": "임시",
+    "6-3": "대선",
   },
 };
 
@@ -148,9 +149,18 @@ function toDayItem(year, month, date, day, lunar) {
     lunar = `${intercalation ? "윤달" : "음력"} ${lunarMonth}.${lunarDate}`;
     if (lunarHolidayList[lunarMonthDateKey]) {
       if (holidayList[monthDateKey]) {
-        addSubstituteHoliday(year, month, date + 1, holidayList[monthDateKey], 1);
+        addSubstituteHoliday(
+          year,
+          month,
+          date + 1,
+          holidayList[monthDateKey],
+          1
+        );
       }
-      holidayList[monthDateKey] = [holidayList[monthDateKey], lunarHolidayList[lunarMonthDateKey]].filter(v => !!v);
+      holidayList[monthDateKey] = [
+        holidayList[monthDateKey],
+        lunarHolidayList[lunarMonthDateKey],
+      ].filter((v) => !!v);
     }
     if (lunarRemarkList[lunarMonthDateKey]) {
       remarkList[monthDateKey] = lunarRemarkList[lunarMonthDateKey];
