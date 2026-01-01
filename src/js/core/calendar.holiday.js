@@ -22,7 +22,7 @@ function mergeHolidayList(monthDateKey, targetList) {
   ];
 }
 
-function addHoliday(monthDateKey, target) {
+function addHoliday(monthDateKey, target, skipSat = false, skipSun = false) {
   if (!monthDateKey || nullish(target)) return;
   mergeHolidayList(monthDateKey, [target]);
 }
@@ -35,21 +35,26 @@ function addSubstituteHoliday({
   dayAfter = 1,
   skipName = true,
   suffix = "대체",
+  skipSat = false,
+  skipSun = false,
 }) {
   if (nullish(holidayName)) {
     return;
   }
   let day = new Date(year, month - 1, date);
-  if (day.getDay() === 0) {
+  const isSaturday = day.getDay() === 6;
+  const isSunday = day.getDay() === 0;
+
+  if (isSunday && !skipSun) {
     day = new Date(year, month - 1, date + dayAfter);
-  } else if (day.getDay() === 6) {
+  } else if (isSaturday && !skipSat) {
     day = new Date(year, month - 1, date + dayAfter + 1);
   }
   const substituteKey = `${day.getMonth() + 1}-${day.getDate()}`;
   const substituteHolidayText = (
     holidayName && !skipName ? [holidayName, suffix] : [suffix]
   ).join(" ");
-  addHoliday(substituteKey, substituteHolidayText);
+  addHoliday(substituteKey, substituteHolidayText, skipSat, skipSun);
 }
 
 /**
@@ -111,6 +116,7 @@ export function evaluateSubstituteHoliday(year, month, date, holidays) {
       holidayName: EMPTY_HOLIDAY_VALUE,
       dayAfter: 0,
       suffix: EMPTY_HOLIDAY_VALUE,
+      skipSat: true,
     });
     addSubstituteHoliday({
       year: dayAfter.getFullYear(),
@@ -119,6 +125,7 @@ export function evaluateSubstituteHoliday(year, month, date, holidays) {
       holidayName: EMPTY_HOLIDAY_VALUE,
       dayAfter: 0,
       suffix: EMPTY_HOLIDAY_VALUE,
+      skipSat: true,
     });
     return;
   }
@@ -129,14 +136,19 @@ export function evaluateSubstituteHoliday(year, month, date, holidays) {
     return;
   }
   holidays.forEach((holidayName, index) => {
+    // 이번 달 휴일 전체 재검증
     if (index === 0 && isOverlapHolidays) {
       return;
     }
+
     addSubstituteHoliday({
       year,
       month,
       date: date + index,
       holidayName,
+      // EMPTY_HOLIDAY_VALUE 는 설과 추석 연휴만 해당
+      suffix: holidayName === EMPTY_HOLIDAY_VALUE ? EMPTY_HOLIDAY_VALUE : undefined,
+      skipSat: EMPTY_HOLIDAY_VALUE === holidayName,
     });
   });
 }
