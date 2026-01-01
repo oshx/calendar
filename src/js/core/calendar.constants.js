@@ -18,6 +18,9 @@ export const temporaryHolidayList = {
     "1-27": ["임시"],
     "6-3": ["대선"],
   },
+  2026: {
+    "6-3": ["지방선거"],
+  },
 };
 
 export const holidayList = {
