@@ -1,23 +1,60 @@
+
 :root {
-    --color-background: #fff;
-    --color-primary: #69c;
-    --color-holiday: #f63;
-    --color-secondary: #ddd;
-    --color-text: #666;
-    --color-text-primary: #000;
-    --color-text-secondary: #777;
+    --base-light-color-background: #fff;
+    --base-light-color-primary: #69c;
+    --base-light-color-holiday: #f63;
+    --base-light-color-secondary: #ddd;
+    --base-light-color-text: #666;
+    --base-light-color-text-primary: #000;
+    --base-light-color-text-secondary: #777;
+
+    --base-dark-color-background: #012;
+    --base-dark-color-primary: #9af;
+    --base-dark-color-holiday: #fa6;
+    --base-dark-color-secondary: #333;
+    --base-dark-color-text: #ccc;
+    --base-dark-color-text-primary: #fff;
+    --base-dark-color-text-secondary: #bbb;
+
+    --color-background: var(--base-light-color-background);
+    --color-primary: var(--base-light-color-primary);
+    --color-holiday: var(--base-light-color-holiday);
+    --color-secondary: var(--base-light-color-secondary);
+    --color-text: var(--base-light-color-text);
+    --color-text-primary: var(--base-light-color-text-primary);
+    --color-text-secondary: var(--base-light-color-text-secondary);
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --color-background: #012;
-        --color-primary: #9af;
-        --color-holiday: #fa6;
-        --color-secondary: #333;
-        --color-text: #ccc;
-        --color-text-primary: #fff;
-        --color-text-secondary: #bbb;
+        --color-background: var(--base-dark-color-background);
+        --color-primary: var(--base-dark-color-primary);
+        --color-holiday: var(--base-dark-color-holiday);
+        --color-secondary: var(--base-dark-color-secondary);
+        --color-text: var(--base-dark-color-text);
+        --color-text-primary: var(--base-dark-color-text-primary);
+        --color-text-secondary: var(--base-dark-color-text-secondary);
     }
+}
+
+html.light {
+    --color-background: var(--base-light-color-background);
+    --color-primary: var(--base-light-color-primary);
+    --color-holiday: var(--base-light-color-holiday);
+    --color-secondary: var(--base-light-color-secondary);
+    --color-text: var(--base-light-color-text);
+    --color-text-primary: var(--base-light-color-text-primary);
+    --color-text-secondary: var(--base-light-color-text-secondary);
+}
+
+html.dark {
+    --color-background: var(--base-dark-color-background);
+    --color-primary: var(--base-dark-color-primary);
+    --color-holiday: var(--base-dark-color-holiday);
+    --color-secondary: var(--base-dark-color-secondary);
+    --color-text: var(--base-dark-color-text);
+    --color-text-primary: var(--base-dark-color-text-primary);
+    --color-text-secondary: var(--base-dark-color-text-secondary);
 }
 
 html,
@@ -310,4 +347,10 @@ table.calendar .wrap .holiday {
 
 html.no-circle table.calendar .wrap .date.circle::after {
     display: none !important;
+}
+
+@media print and (orientation: landscape) {
+    html.book table.calendar tbody td.day {
+        height: 10rem;
+    }
 }

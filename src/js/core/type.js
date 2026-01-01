@@ -13,6 +13,11 @@ export const CircleType = {
   HIDE: "hide",
 };
 
+export const DesignType = {
+  LIGHT: "light",
+  DARK: "dark",
+};
+
 export const SortTypeBookOrder = [
   // 2장을 1장에 모아 인쇄할 경우 + 양면 인쇄
   4, 1, 2, 3,

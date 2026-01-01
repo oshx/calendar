@@ -15,4 +15,5 @@ export const DEFAULT_PARAM = {
   sortType: null,
   year: null,
   circle: null,
+  design: null,
 };
