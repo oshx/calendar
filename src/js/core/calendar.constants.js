@@ -92,6 +92,6 @@ export const circleList = {
 
 export const lunarCircleList = {
   "4-8": true,
-  "10-15": true,
+  "10-8": true,
   "7-18": true,
 };
