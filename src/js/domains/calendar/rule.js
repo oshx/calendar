@@ -45,7 +45,6 @@
  *   month: number;
  *   date: number;
  *   day: number;
- *
  * }} calendarRuleResult
  */
 // private
@@ -55,4 +54,6 @@
  * @param {calendarRule} option
  * @returns {calendarRule}
  */
-export function createRule(option) {}
+export default function createCalendarRule(option) {
+  
+}
